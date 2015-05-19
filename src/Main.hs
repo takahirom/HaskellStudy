@@ -22,6 +22,31 @@ module Main where
         print $  length' [1..100]
         print $  lucky 100
         print $ head' [1..4]
+        print $ maxord 1 2
+        print $ "1:" ++ show(wheremax [1..100])
+        print $ "3:" ++ show(wheremax [1,2])
+        print $ "4:" ++ show(wheremax [2,1])
+        print $ "4:" ++ show(wheremax [2,3,1])
+
+    wheremax :: (Ord a) => [a] -> a
+    wheremax (x:y:[])
+        | x > y = x
+        | otherwise = y
+    wheremax (x:y)
+        | x > maxy = x
+        | otherwise = maxy
+        where maxy = wheremax y
+
+
+
+
+
+
+    maxord :: (Ord a) => a -> a -> a
+    maxord a b
+        | a > b = a
+        | otherwise = b
+
 
     head' :: [a] -> a
     head' (x:_) = x
