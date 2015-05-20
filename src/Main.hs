@@ -28,6 +28,39 @@ module Main where
         print $ "4:" ++ show(wheremax [2,1])
         print $ "4:" ++ show(wheremax [2,3,1])
 
+        print $ "fib:" ++ show(fib 4)
+        print $ "max:" ++ show(maximum' [1,3,5,6,2,3])
+        print $ "replicate:" ++ show(replicate' 3 5)
+        print $ show([1,5,2,4]!! 1)
+        print $ "take:" ++ show(take' 3 [1,5,2,4])
+        print $ "reverse:" ++ show(reverse' [1,5,2,4])
+        --print $ "repeat:" ++ show(repeat' [1,5,2,4])
+        print $ "take:" ++ show(take' 3 (repeat [3]))
+
+    repeat' :: [a] -> [a]
+    repeat' x = x ++ repeat' x
+
+
+    reverse' :: [a] -> [a]
+    reverse' (x:xs) = reverse xs ++ [x]
+
+    take' :: Int -> [a] -> [a]
+    take' 1 y = [y !! 0]
+    take' x y = (take' (x-1) y) ++ [y !! (x-1)]
+
+    fib :: Int -> Int
+    fib 0 = 1
+    fib 1 = 1
+    fib x = fib(x-1)+fib(x-2)
+
+    maximum' :: (Ord a) => [a] -> a
+    maximum' (x:y:[]) = if x > y then x else y
+    maximum' (x:y) = if x > maximum' y then x else maximum' y
+
+    replicate' :: Int -> a -> [a]
+    replicate' 0 y = [y]
+    replicate' x y = [y] ++ replicate (x-1) y
+
     wheremax :: (Ord a) => [a] -> a
     wheremax (x:y:[])
         | x > y = x
@@ -36,10 +69,6 @@ module Main where
         | x > maxy = x
         | otherwise = maxy
         where maxy = wheremax y
-
-
-
-
 
 
     maxord :: (Ord a) => a -> a -> a
